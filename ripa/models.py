@@ -8,15 +8,17 @@ class VersionUnderTest(models.Model):
         return self.version
 
 
-class Release(models.Model):
-    name = models.CharField(max_length=10)
-
-    def __str__(self):
-        return self.name
 
 
 class Project(models.Model):
     name = models.CharField(max_length=30)
+    def __str__(self):
+        return self.name
+
+
+class Release(models.Model):
+    name = models.CharField(max_length=10)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.name
@@ -43,7 +45,7 @@ class Issue(models.Model):
 
     datetime_opened = models.DateTimeField(auto_now_add=True)
     datetime_last_modified = models.DateTimeField(auto_now=True)
-    datetime_closed = models.DateTimeField()
+    datetime_closed = models.DateTimeField(blank=True, null=True)
     priority = models.CharField(
         max_length=20,
         choices=(
