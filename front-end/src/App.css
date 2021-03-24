@@ -1,0 +1,26 @@
+
+#menu-bar {
+    background-color: aliceblue;
+    box-shadow: 0 2px 2px rgba(50, 50, 50, 0.1);
+}
+
+#menu-bar #menu {
+    list-style-type: none;
+
+}
+
+#menu-bar #menu li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+#menu-bar #menu li a {
+    padding: 20px 10px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#main {
+    max-width: 800px;
+}
