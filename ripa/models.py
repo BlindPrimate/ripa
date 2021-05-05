@@ -8,17 +8,15 @@ class VersionUnderTest(models.Model):
         return self.version
 
 
-
-
 class Project(models.Model):
     name = models.CharField(max_length=30)
     def __str__(self):
         return self.name
 
-
 class Release(models.Model):
     name = models.CharField(max_length=10)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
+    released = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

@@ -23,11 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -39,10 +34,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ripa.apps.RipaConfig',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -116,6 +113,13 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+CORS_ORIGIN_ALLOW_ALL = DEBUG
+
+ALLOWED_HOSTS = ['*']
 
 
 # Static files (CSS, JavaScript, Images)
