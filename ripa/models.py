@@ -8,10 +8,11 @@ class VersionUnderTest(models.Model):
         return self.version
 
 
-
-
 class Project(models.Model):
     name = models.CharField(max_length=30)
+    description = models.TextField(max_length=10000, blank=True, default="")
+    datetime_started = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.name
 
@@ -19,6 +20,7 @@ class Project(models.Model):
 class Release(models.Model):
     name = models.CharField(max_length=10)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
+    is_released = models.BooleanField()
 
     def __str__(self):
         return self.name
@@ -26,8 +28,9 @@ class Release(models.Model):
 
 class Issue(models.Model):
     title = models.CharField(max_length=300)
-    description = models.TextField(max_length=10000)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
+    description = models.TextField(max_length=10000, blank=True, default="")
+    associated_project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
+    associated_release = models.ForeignKey(Release, on_delete=models.CASCADE, null=True, default=None)
 
     status_choices = (
         ("NE", "New"),
@@ -77,6 +80,11 @@ class Defect(Issue):
 
 
 class Feature(Issue):
-
     def __str__(self):
         return self.title
+
+
+class RFC(Issue):
+    def __str__(self):
+        return self.title
+
